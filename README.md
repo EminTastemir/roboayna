@@ -1,6 +1,6 @@
-<div align="center">
-
-<img src="assets/logo.png" width="180">
+<p align="center">
+<img src="intro-picture.png" width="220">
+</p>
 
 # 🤖 RoboAyna
 
@@ -33,7 +33,7 @@ Next Generation Smart Mirror Powered by Artificial Intelligence & Voice Commands
 ## 🎥 Demo
 
 <p align="center">
-<img src="assets/demo.gif" width="900">
+<img src="roboayna_gif.gif" width="900">
 </p>
 
 ---
@@ -104,13 +104,14 @@ MagicMirror Display
 
 ---
 
-# 📸 Screenshots
+## 📸 Screenshots
 
 <p align="center">
-
-<img src="assets/home.png" width="750">
-
+<img src="screenshot_1.jpeg" width="30%">
+<img src="screenshot_2.jpeg" width="30%">
+<img src="screenshot_3.jpeg" width="30%">
 </p>
+
 
 ---
 
