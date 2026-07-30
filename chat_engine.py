@@ -4,7 +4,7 @@ import datetime
 from config import OLLAMA_URL, MODEL_NAME, ASSISTANT_NAME, CREATOR_NAME
 from memory_manager import get_all_memory
 
-# RoboAyna'nın Sistem Prompt'u (Kişiliği)
+
 SYSTEM_PROMPT = f"""Rol: Sen {ASSISTANT_NAME}.
 Yaratıcı: {CREATOR_NAME} takımı.
 Görev: Kullanıcının gündelik işlerine yardımcı olan yerel bir akıllı ayna.
@@ -47,7 +47,7 @@ def generate_chat_response(user_input: str) -> str:
         result = response.json()
         text = result.get("message", {}).get("content", "").strip()
         
-        # Olası emojileri ve istenmeyen sembolleri kesin olarak filtrele
+       
         text = re.sub(r'[^\w\s.,!?\'"()\-:;]', '', text)
         return text.strip()
     except Exception as e:
