@@ -1,5 +1,5 @@
 <p align="center">
-<img src="intro-picture.png" width="220">
+<img src="intro-picture.png" width="750">
 </p>
 
 # 🤖 RoboAyna
