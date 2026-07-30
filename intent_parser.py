@@ -83,9 +83,7 @@ def _clean_json_text(text: str) -> str:
 
 
 def parse_intent(user_input: str) -> dict:
-    """
-    Kullanıcı girdisini Ollama üzerinden analiz eder ve bir sözlük (JSON) döndürür.
-    """
+   
     chat_url = _build_chat_url(OLLAMA_URL)
     prompt = INTENT_PROMPT.replace("{user_input}", user_input)
 
