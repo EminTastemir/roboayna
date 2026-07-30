@@ -7,7 +7,6 @@ def get_weather() -> str:
     İleride OpenWeatherMap veya AccuWeather API'si eklenecek.
     """
     
-    # Test amaçlı rastgele durumlar
     durumlar = [
         "Bugün hava güneşli ve 25 derece görünüyor.",
         "Şu an hava hafif bulutlu ve 20 derece.",
