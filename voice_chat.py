@@ -7,7 +7,6 @@ import emoji
 import datetime
 import random
 
-# Ses sistemini başlat
 pygame.mixer.init()
 
 def konus(metin):
@@ -28,7 +27,6 @@ def konus(metin):
     except Exception as e:
         print(f"[!] Seslendirme hatası: {e}")
 
-# Hava durumu alma fonksiyonu
 def hava_durumu_al():
     try:
         r = requests.get("https://wttr.in/?format=j1&lang=tr", timeout=5)
@@ -40,7 +38,6 @@ def hava_durumu_al():
     except Exception as e:
         return ""
 
-# İnternetten bilgi alma fonksiyonu (Wikipedia)
 def wikipedia_ozet_al(sorgu):
     try:
         url = "https://tr.wikipedia.org/w/api.php"
@@ -87,12 +84,9 @@ def wikipedia_ozet_al(sorgu):
         print(f"[!] Wikipedia hatası: {e}")
         return ""
 
-# Ollama'ya (Gemma'ya) soru sorma fonksiyonu
 def gemma_cevap_al(soru, sohbet_gecmisi):
-    # O anki saati al
     su_an = datetime.datetime.now().strftime("%d.%m.%Y %H:%M")
     
-    # Hava durumu sorgusu kontrolü
     hava_bilgisi = ""
     if any(kelime in soru.lower() for kelime in ["hava", "sıcak", "yağmur", "kar", "derece", "soğuk"]):
         print("[🌤️] Hava durumu internetten çekiliyor...")
@@ -100,7 +94,6 @@ def gemma_cevap_al(soru, sohbet_gecmisi):
         if hava:
             hava_bilgisi = f" Güncel Hava Durumu: {hava} (Kullanıcı hava durumunu sorarsa, doğrudan bu bilgiyi doğal bir dille söyle)."
 
-    # İnternet araması kontrolü
     internet_bilgisi = ""
     arama_tetikleyiciler = ["nedir", "kimdir", "hakkında bilgi ver", "ne demek", "kim"]
     if any(kelime in soru.lower() for kelime in arama_tetikleyiciler):
@@ -115,12 +108,10 @@ def gemma_cevap_al(soru, sohbet_gecmisi):
                 print(f"[🌐] Bulunan bilgi: {wiki_ozet[:50]}...")
                 internet_bilgisi = f" İnternetten şu bilgiyi buldum: '{wiki_ozet}'. Kullanıcının sorusuna cevap verirken bu bilgiyi kullanarak doğal ve kısa bir yanıt oluştur."
             
-    # Chat API'ye geçiş yapıyoruz, bağlamı tutmak için
     url = "http://localhost:11434/api/chat"
     
     system_prompt = f"Senin adın RoboAyna. Sen 'Robozen' ekibi tarafından geliştirilmiş akıllı bir ayna asistanısın. Asla Google veya başka bir şirket tarafından geliştirildiğini söyleme. Şu anki tarih ve saat: {su_an}. SADECE sana ne zaman tasarlandığın veya yapıldığın sorulursa '20 Nisan günü kullanıma açıldım' de. Alakasız sorularda bu tarihi KESİNLİKLE söyleme. Kullanıcı saati veya tarihi sorarsa doğal bir dille söyle.{hava_bilgisi}{internet_bilgisi} Kullanıcı Spotify veya müzik çalmanı isterse 'Henüz Spotify bağlantım kurulmadı ancak Robozen ekibi yakında ekleyecek' de. Cevapların sesli okunacaktır. KESİNLİKLE EMOJİ KULLANMA. Sadece saf metin ver ve cevaplarını çok kısa, öz tut."
     
-    # Kullanıcının yeni sorusunu sohbet geçmişine ekle
     sohbet_gecmisi.append({"role": "user", "content": soru})
     
     messages = [{"role": "system", "content": system_prompt}] + sohbet_gecmisi
@@ -140,7 +131,6 @@ def gemma_cevap_al(soru, sohbet_gecmisi):
         cevap = cevap.replace("*", "").replace("#", "")
         cevap = cevap.strip()
         
-        # Asistanın verdiği cevabı da geçmişe ekle
         sohbet_gecmisi.append({"role": "assistant", "content": cevap})
         
         return cevap
@@ -148,7 +138,6 @@ def gemma_cevap_al(soru, sohbet_gecmisi):
         return f"Ollama'ya bağlanırken bir hata oluştu."
 
 recognizer = sr.Recognizer()
-# Gürültü hassasiyetini düşürmek için alt sınırı artırdık ve dinamik eşiği kapattık
 recognizer.energy_threshold = 1000 
 recognizer.dynamic_energy_threshold = False
 
@@ -172,7 +161,6 @@ def asistan_baslat():
                     print("[🔔] ASİSTAN UYANDI!")
                     konus("Efendim?")
                     
-                    # Uyandığında sohbet geçmişini sıfırla
                     guncel_sohbet_gecmisi = []
                     
                     while True:
@@ -195,7 +183,6 @@ def asistan_baslat():
                                 konus(random.choice(veda_mesajlari))
                                 break 
                                 
-                            # Özel komut / Sürpriz yumurta kontrolü
                             kufurler = ["orosğu çocuğu", "orospu çocuğu", "orosbu çocuğu"]
                             if any(kufur in soru.lower() for kufur in kufurler):
                                 konus("sensin o kardeşim")
