@@ -13,7 +13,6 @@ while True:
         if not user_input.strip():
             continue
             
-        # Asistan çekirdeğine isteği gönder
         response = requests.post(URL, json={"text": user_input})
         
         if response.status_code == 200:
